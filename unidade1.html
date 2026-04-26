@@ -6,67 +6,236 @@
     <title>Unidade 1 - Fundamentos do Trabalho</title>
     <link rel="icon" href="img/CodeCraft - icon.png" type="image/x-icon">
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        * {
             margin: 0;
-            background-color: #f4f6f9;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(120deg, #e0e7ef 0%, #b6d0f7 60%, #3b82f6 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            color: #222;
+            padding-top: 180px;
         }
 
         header {
-            background-color: #0d1b2a;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #3b82f6 100%);
             color: white;
+            padding: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+            border-bottom: 3px solid #60a5fa;
+        }
+
+        .header-top {
             text-align: center;
-            padding: 25px;
+            margin-bottom: 15px;
+        }
+
+        header h1 {
+            font-size: 1.8em;
+            margin: 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        header p {
+            font-size: 0.95em;
+            opacity: 0.95;
+            margin: 5px 0 0 0;
+        }
+
+        .header-nav {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .header-section {
+            text-align: center;
+        }
+
+        .header-section h3 {
+            font-size: 0.85em;
+            margin: 0 0 6px 0;
+            color: #fbbf24;
+            font-weight: 600;
+        }
+
+        .header-section p {
+            font-size: 0.8em;
+            margin: 0;
+            opacity: 1;
+        }
+
+        .header-section a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 4px 10px;
+            margin: 3px 0;
+            border-radius: 4px;
+            font-size: 0.85em;
+            transition: all 0.3s ease;
+        }
+
+        .header-section a:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+            padding-left: 14px;
         }
 
         section {
-            background-color: white;
+            background-color: #fff;
             margin: 20px;
-            padding: 20px;
+            padding: 25px;
             border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(59,130,246,0.07);
+            backdrop-filter: blur(10px);
+            border-left: 4px solid #667eea;
+            transition: all 0.3s ease;
+        }
+
+        section:hover {
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+            transform: translateY(-2px);
         }
 
         h1 {
-            color: #dddee0;
+            color: #1e3a8a;
+        }
+
+        h2 {
+            color: #1e3a8a;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         h3 {
-            color: #0077b6;
+            color: #667eea;
+            margin-top: 15px;
         }
 
         p {
-            line-height: 1.6;
+            line-height: 1.7;
+            color: #444;
         }
 
         ul {
             padding-left: 20px;
+            line-height: 1.8;
         }
 
         li {
             margin-bottom: 8px;
+            color: #555;
         }
 
         .destaque {
-            background-color: #e7f1ff;
-            border-left: 5px solid #0077b6;
-            padding: 10px;
-            margin-top: 10px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(240, 147, 251, 0.1) 100%);
+            border-left: 5px solid #667eea;
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 8px;
+            font-style: italic;
+            color: #1e3a8a;
         }
 
         footer {
-            background-color: #0d1b2a;
+            background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #3b82f6 100%);
             color: white;
             text-align: center;
-            padding: 15px;
+            padding: 30px 20px;
+            margin-top: 40px;
+            border-top: 3px solid #60a5fa;
+            box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .rodape-content {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .rodape-section {
+            text-align: center;
+        }
+
+        .rodape-section h3 {
+            font-size: 1em;
+            margin-bottom: 8px;
+            color: #fbbf24;
+        }
+
+        .rodape-section a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 8px;
+            margin: 4px 0;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .rodape-section a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding-left: 12px;
         }
 
         button {
-            background-color: #0077b6;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
+            padding: 12px 28px;
+            border-radius: 25px;
             cursor: pointer;
+            font-weight: 600;
+            font-size: 0.95em;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            margin: 8px;
+        }
+
+        button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
+        }
+
+        button:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        button:active {
+            transform: translateY(-1px);
         }
     </style>
 </head>
@@ -74,8 +243,13 @@
 <body>
 
     <header>
-        <h1>Unidade 1</h1>
-        <p>Fundamentos do Mundo do Trabalho e Desenvolvimento Pessoal</p>
+        <div class="header-top">
+            <h1>Unidade 1</h1>
+            <p>Fundamentos do Mundo do Trabalho e Desenvolvimento Pessoal</p>
+        </div>
+        <!-- Navegação removida do cabeçalho -->
+        
+        </div>
     </header>
 
     <section>
@@ -178,13 +352,16 @@
             O sucesso da equipe depende da colaboração de todos.
         </div>
     </section>
-<button onclick="window.location.href='index.html'">Voltar ao inicio</button>
-<button onclick="window.location.href='unidade2.html'">Próxima Unidade</button>
-<br><br>
-    <footer>
-        <p>Curso Profissional do Futuro - Unidade 1</p>
-    </footer>
 
+    <div style="text-align: center; margin: 30px 20px;">
+        <button onclick="window.location.href='index.html'"> Voltar ao Início</button>
+        <button onclick="window.location.href='unidade2.html'"> Próxima Unidade</button>
+    </div>
+
+    <footer style="background: white; border-top: 1px solid #ddd; margin-top: 50px;">
+        <hr style="border: 0; border-top: 1px solid rgba(102,126,234,0.2); margin: 20px 0;">
+        <p style="text-align: center; color: #666; opacity: 0.9; margin: 15px 0;">&copy; 2026 CodeCraft - Profissional do Futuro</p>
+    </footer>
 
 </body>
 </html>

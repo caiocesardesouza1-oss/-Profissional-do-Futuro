@@ -6,104 +6,228 @@
     <title>Profissional do Futuro</title>
     <link rel="icon" href="img/CodeCraft - icon.png" type="image/x-icon">
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        * {
             margin: 0;
-            background-color: #f4f6f9;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(120deg, #e0e7ef 0%, #b6d0f7 60%, #3b82f6 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            color: #222;
+        }
+
         #cabecalho {
-            background-color: #0d1b2a;
+            background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #3b82f6 100%);
             color: white;
-            text-align: center;
-            padding: 20px;
+            padding: 30px 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border-bottom: 3px solid #60a5fa;
         }
 
-        
+        .cabecalho-top {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        #cabecalho h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        #cabecalho p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+
+        .cabecalho-nav {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .cabecalho-section {
+            text-align: center;
+        }
+
+        .cabecalho-section h3 {
+            font-size: 0.95em;
+            margin-bottom: 8px;
+            color: #fbbf24;
+            font-weight: 600;
+        }
+
+        .cabecalho-section p {
+            font-size: 0.9em;
+            margin: 0;
+            opacity: 1;
+        }
+
+        .cabecalho-section a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 6px 12px;
+            margin: 4px 0;
+            border-radius: 4px;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+        }
+
+        .cabecalho-section a:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+            padding-left: 16px;
+        }
+
         div {
             margin: 20px;
-            padding: 20px;
-            background-color: white;
+            padding: 25px;
+            background-color: #fff;
             border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(59,130,246,0.07);
+            border-top: 2px solid #3b82f6;
+            transition: box-shadow 0.2s;
+        }
+
+        div:hover {
+            box-shadow: 0 4px 16px rgba(59,130,246,0.13);
+            transform: translateY(-2px);
         }
 
         h1, h2 {
-            color: #0d1b2a;
+            color: #1e3a8a;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
-       
         .unidade {
-            border-left: 5px solid #0077b6;
+            border-left: 5px solid #667eea;
+            transition: all 0.3s ease;
         }
 
-        
+        .unidade:hover {
+            transform: scale(1.02);
+            box-shadow: 0 12px 35px rgba(102, 126, 234, 0.2);
+        }
+
         ul {
             padding-left: 20px;
+            line-height: 1.8;
         }
 
         li {
-            margin-bottom: 5px;
+            margin-bottom: 8px;
         }
 
-        
         #atividades h3 {
-            color: #0077b6;
+            color: #667eea;
         }
 
-        
         #rodape {
-            text-align: center;
-            background-color: #0d1b2a;
+            background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #3b82f6 100%);
             color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 40px;
+            border-top: 3px solid #60a5fa;
+            box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.08);
         }
 
-        
-        .unidade:hover {
-            transform: scale(1.02);
-            transition: 0.3s;
+        .rodape-content {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .rodape-section {
+            text-align: center;
+        }
+
+        .rodape-section h3 {
+            font-size: 1em;
+            margin-bottom: 8px;
+            color: #fbbf24;
+        }
+
+        .rodape-section a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 8px;
+            margin: 4px 0;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .rodape-section a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding-left: 12px;
         }
 
         button {
-            background-color: #0077b6;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border: none;
-            padding: 10px 20px;
-            border-radius: 510px;
+            padding: 12px 28px;
+            border-radius: 25px;
             cursor: pointer;
-            margin: 10px;}
-            
+            margin: 10px;
+            font-weight: 600;
+            font-size: 1em;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
 
+        button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
+        }
+
+        button:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        button:active {
+            transform: translateY(-1px);
+        }
     </style>
 </head>
 
 <body>
-
-    <div id="cabecalho">
-        <h1>Curso: Profissional do Futuro</h1>
-        <p>Desenvolvimento Front-End Web</p>
-    </div>
-
-    <div id="descricao">
-        <h2>Descrição do Curso</h2>
-        <p>
-            O curso prepara jovens para o mercado de trabalho, desenvolvendo
-            competências técnicas, digitais e socioemocionais.
-        </p>
-    </div>
-
-    <div id="objetivos">
-        <h2>Objetivos</h2>
-        <ul>
-            <li>Desenvolver habilidades socioemocionais</li>
-            <li>Compreender o ambiente organizacional</li>
-            <li>Ensinar ferramentas digitais</li>
-            <li>Estimular pensamento crítico</li>
-            <li>Preparar para processos seletivos</li>
-        </ul>
-    </div>
-
-    <div id="unidades">
+    <header>
+        <div class="cabecalho-top">
+            <h1>Profissional do Futuro</h1>
+            <p>Curso de Desenvolvimento Profissional</p>
+        </div>
+        <!-- Navegação removida do cabeçalho -->
+    </header>
 
         <div class="unidade">
             <h2>Unidade 1 - Fundamentos do Trabalho</h2>
@@ -180,13 +304,25 @@
             </ul>
     </div>
 
-    <button onclick="window.location.href='unidade1.html'"> unidade 1</button>
-    <button onclick="window.location.href='unidade2.html'"> unidade 2</button>
-    <button onclick="window.location.href='unidade3.html'"> unidade 3</button>
+    <button onclick="window.location.href='unidade1.html'" style="margin: 20px;"> Unidade 1</button>
+    <button onclick="window.location.href='unidade2.html'" style="margin: 20px;"> Unidade 2</button>
+    <button onclick="window.location.href='unidade3.html'" style="margin: 20px;"> Unidade 3</button>
 
-    <div id="rodape">
-        <p>CodeCraft - Profissional do Futuro</p>
+    <div id="rodape" style="margin-top: 50px; padding: 20px;">
+        <hr style="border: 0; border-top: 1px solid rgba(102,126,234,0.2); margin: 20px 0;">
+        <p style="text-align: center; color: #666; opacity: 0.9; margin: 15px 0;">&copy; 2026 CodeCraft - Profissional do Futuro</p>
     </div>
+
+    <script>
+        // Smooth scroll behavior
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                target.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+    </script>
 
 </body>
 </html>
