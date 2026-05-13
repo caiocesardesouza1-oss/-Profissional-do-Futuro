@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificado - Profissional do Futuro</title>
+    <link rel="icon" href="img/CodeCraft - icon.png" type="image/x-icon">
+    <link rel="stylesheet" href="styles.css">
+       
+        
+    </style>
+</head>
+<body>
+    <!-- CABEÇALHO -->
+    <header>
+        <div class="header-top">
+            <h1>🏆 Certificado de Conclusão</h1>
+            <p>Profissional do Futuro - Declaração de Aprendizagem Completa</p>
+        </div>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px;">
+            <span class="user-name" style="color: rgba(255, 255, 255, 0.8); font-size: 0.95em;">Bem-vindo!</span>
+            <div style="display: flex; gap: 10px;">
+                <button class="btn btn-secondary" onclick="window.location.href='index.html'" style="padding: 8px 16px; font-size: 0.9em;">← Voltar</button>
+                <button class="btn btn-logout" onclick="logout()" style="padding: 8px 16px; font-size: 0.9em;">Sair</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <div class="container" style="padding-top: 200px;">
+        <div class="conteudo" style="text-align: center;">
+            <div class="certificado" id="certificadoArea">
+                <div class="certificado-titulo">Certificado de Conclusão</div>
+                <div class="certificado-texto">Certifica-se que</div>
+                <div class="certificado-nome" id="nomeCertificado">Seu Nome Aqui</div>
+                <div class="certificado-texto">
+                    Completou com sucesso a declaração de aprendizagem<br>
+                    <strong>"Profissional do Futuro"</strong>
+                </div>
+                <div class="certificado-texto">
+                    Demonstrando competência e conhecimento em todos os módulos apresentados:
+                    <ul style="text-align: left; display: inline-block; margin-top: 10px;">
+                        <li>✓ Fundamentos do Trabalho</li>
+                        <li>✓ Tecnologia e Inovação</li>
+                        <li>✓ Empreendedorismo e Liderança</li>
+                    </ul>
+                </div>
+                <div class="certificado-data" id="dataCertificado">
+                    Emitido em [Data]
+                </div>
+            </div>
+
+            <div class="botoes" style="margin-top: 40px; justify-content: center;">
+                <button class="btn btn-primary" onclick="imprimirCertificado()" style="padding: 15px 30px; font-size: 1em;">
+                    🖨️ Imprimir Certificado
+                </button>
+                <button class="btn btn-success" onclick="baixarCertificado()" style="padding: 15px 30px; font-size: 1em;">
+                    📥 Baixar como PDF
+                </button>
+                <button class="btn btn-secondary" onclick="compartilharCertificado()" style="padding: 15px 30px; font-size: 1em;">
+                    📤 Compartilhar
+                </button>
+            </div>
+        </div>
+
+        <!-- INFORMAÇÕES ADICIONAIS -->
+        <div class="conteudo" style="margin-top: 40px;">
+            <h2>📋 Sobre seu Certificado</h2>
+            <p>
+                Você completou com sucesso a declaração de aprendizagem <strong>"Profissional do Futuro"</strong>, 
+                que o preparou com as competências essenciais para o mundo profissional moderno.
+            </p>
+            <p>
+                Este certificado reconhece seu:
+            </p>
+            <ul>
+                <li><strong>Conhecimento:</strong> Dos fundamentos do trabalho, tecnologia e liderança</li>
+                <li><strong>Dedicação:</strong> Ao completar todos os módulos e quizzes</li>
+                <li><strong>Compromisso:</strong> Com seu desenvolvimento profissional contínuo</li>
+            </ul>
+            <p style="margin-top: 20px; color: #1e3a8a;">
+                <strong>Próximos passos:</strong> Mantenha este certificado em local seguro, 
+                compartilhe em redes profissionais e continue desenvolvendo suas competências.
+            </p>
+        </div>
+
+        <!-- BOTÕES DE NAVEGAÇÃO -->
+        <div class="botoes" style="margin: 40px 0; justify-content: center;">
+            <button class="btn btn-secondary" onclick="window.location.href='index.html'">← Voltar ao Início</button>
+            <button class="btn btn-primary" onclick="window.location.href='unidade1.html'">Revisitar Unidade 1</button>
+        </div>
+    </div>
+
+    <!-- RODAPÉ -->
+    <footer>
+        <p>&copy; 2026 Profissional do Futuro - Certificado de Conclusão</p>
+        <p>Parabéns! Você é agora um Profissional do Futuro!</p>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script src="script.js"></script>
+    <script>
+        // Carregar dados do certificado ao abrir a página
+        document.addEventListener('DOMContentLoaded', function() {
+            verificarLogin();
+            const nomeUsuario = getNomeUsuario();
+            const data = new Date();
+            const dataFormatada = data.toLocaleDateString('pt-BR', { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
+
+            if (nomeUsuario) {
+                document.getElementById('nomeCertificado').textContent = nomeUsuario;
+            }
+            document.getElementById('dataCertificado').textContent = `Emitido em ${dataFormatada}`;
+        });
+
+        // Imprimir certificado
+        function imprimirCertificado() {
+            const area = document.getElementById('certificadoArea');
+            const telaImpressao = window.open('', '', 'height=800,width=1000');
+            telaImpressao.document.write('<html><head><title>Certificado</title>');
+            telaImpressao.document.write('<link rel="stylesheet" href="styles.css">');
+            telaImpressao.document.write('</head><body>');
+            telaImpressao.document.write(area.innerHTML);
+            telaImpressao.document.write('</body></html>');
+            telaImpressao.document.close();
+            telaImpressao.print();
+        }
+
+        // Baixar certificado (simular download)
+        function baixarCertificado() {
+            alert('🎓 Para baixar o certificado em PDF, utilize a opção "Imprimir" do navegador e escolha "Salvar como PDF".');
+            imprimirCertificado();
+        }
+
+        // Compartilhar certificado
+        function compartilharCertificado() {
+            const nomeUsuario = getNomeUsuario();
+            const texto = `Acabo de completar a declaração de aprendizagem "Profissional do Futuro"! Adquiri competências essenciais em Fundamentos do Trabalho, Tecnologia e Inovação, e Empreendedorismo e Liderança. 🏆`;
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Certificado - Profissional do Futuro',
+                    text: texto
+                }).catch(err => console.log('Erro ao compartilhar:', err));
+            } else {
+                alert('Copiar para compartilhar:\n\n' + texto);
+            }
+        }
+    </script>
+</body>
+</html>
+    </header>
+
+    <div class="container">
+        <div class="cert">
+            <h1>Declaração de Conclusão</h1>
+            
+
+            <p class="texto">Declaro que o aluno <strong id="studentName" > Nome do aluno</strong> completou a declaração de aprendizagem com aproveitamento, a declaração de aprendizagem <strong>Profissional do Futuro</strong>, com carga horária total de <strong>35 horas</strong>, desenvolvendo competências essenciais para o mercado atual, incluindo pensamento crítico, inovação, tecnologia,  criatividade e liderança.</p>
+
+            <div class="meta">
+                <div class="small">Código do declaração: <strong>PF-2026-0001</strong></div>
+                <div class="small">Data de conclusão: <strong id="dataConclusao"></strong></div>
+            </div>
+
+            <div class="assinaturas">
+                <div class="line">Coordenador da Declaração de Aprendizagem</div>
+                <div class="line">Instituição</div>
+            </div>
+
+            <div class="buttons">
+                <button onclick="window.location.href='index.html'"> Voltar ao Início</button>
+                <button onclick="window.print()">🖨️ Imprimir</button>
+                <button class="secondary" onclick="editarNome()"> Editar Nome</button>
+            </div>
+        </div>
+    </div>
+
+    <footer style="background: white; border-top: 1px solid #ddd; margin-top: 50px;">
+        <hr style="border: 0; border-top: 1px solid rgba(102,126,234,0.2); margin: 20px 0;">
+        <p style="text-align: center; color: #666; opacity: 0.9; margin: 15px 0;">&copy; 2026 CodeCraft - Profissional do Futuro</p>
+    </footer>
+
+    <script>
+        
+        const hoje = new Date();
+        const dataFmt = hoje.toLocaleDateString('pt-BR');
+        document.getElementById('dataConclusao').textContent = dataFmt;
+
+        function editarNome(){
+            const nome = prompt('Insira o nome do aluno:', document.getElementById('studentName').textContent);
+            if(nome !== null && nome.trim() !== '') {
+                document.getElementById('studentName').textContent = nome.trim();
+            }
+        }
+    </script>
+</body>
+</html>
