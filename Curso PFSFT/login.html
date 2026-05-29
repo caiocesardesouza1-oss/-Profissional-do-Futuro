@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Profissional do Futuro</title>
+    <link rel="icon" href="img/CodeCraft - icon.png" type="image/x-icon">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .login-container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 450px;
+            padding: 40px;
+            animation: slideUp 0.5s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .login-header h1 {
+            color: #1e3a8a;
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .login-header p {
+            color: #666;
+            font-size: 1em;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #1e3a8a;
+            font-weight: bold;
+            font-size: 1em;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #e5e7eb;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            background: none;
+            color: #999;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+            margin-bottom: -2px;
+        }
+
+        .tab-btn.active {
+            color: #3b82f6;
+            border-bottom-color: #3b82f6;
+        }
+
+        .form-section {
+            display: none;
+        }
+
+        .form-section.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .form-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .form-buttons button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+        }
+
+        .error-message {
+            color: #dc2626;
+            font-size: 0.95em;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .success-message {
+            color: #10b981;
+            font-size: 0.95em;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
+            border-left: 4px solid #3b82f6;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            color: #0c4a6e;
+        }
+
+        .info-box strong {
+            color: #1e3a8a;
+        }
+
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 25px;
+            }
+
+            .login-header h1 {
+                font-size: 1.5em;
+            }
+
+            .tabs {
+                margin-bottom: 20px;
+            }
+
+            .tab-btn {
+                padding: 10px;
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-header">
+            <h1> Profissional do Futuro</h1>
+            <p>Plataforma de Aprendizagem</p>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-btn active" onclick="mudarAba('login')">Entrar</button>
+            <button class="tab-btn" onclick="mudarAba('cadastro')">Cadastro</button>
+        </div>
+
+        <!-- SEÇÃO DE LOGIN -->
+        <div id="login" class="form-section active">
+            <div class="info-box">
+                <strong> Dica:</strong> Use suas credenciais de cadastro para entrar.
+            </div>
+            <form onsubmit="fazerLogin(event)">
+                <div class="form-group">
+                    <label for="loginEmail">Email ou Usuário:</label>
+                    <input type="text" id="loginEmail" placeholder="seu@email.com ou seu_usuario" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginSenha">Senha:</label>
+                    <input type="password" id="loginSenha" placeholder="Sua senha" required>
+                </div>
+                <div class="form-buttons">
+                    <button type="submit" class="btn-submit">Entrar</button>
+                </div>
+                <div class="error-message" id="loginError"></div>
+            </form>
+        </div>
+
+        <!-- SEÇÃO DE CADASTRO -->
+        <div id="cadastro" class="form-section">
+            <div class="info-box">
+                <strong> Importante:</strong> O nome que você registrar aqui aparecerá no seu certificado. Digite com cuidado!
+            </div>
+            <form onsubmit="fazerCadastro(event)">
+                <div class="form-group">
+                    <label for="cadastroNome">Nome Completo:</label>
+                    <input type="text" id="cadastroNome" placeholder="Seu nome completo" required minlength="3">
+                </div>
+                <div class="form-group">
+                    <label for="cadastroEmail">Email:</label>
+                    <input type="email" id="cadastroEmail" placeholder="seu@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="cadastroUsuario">Usuário:</label>
+                    <input type="text" id="cadastroUsuario" placeholder="Escolha um usuário" required minlength="3">
+                </div>
+                <div class="form-group">
+                    <label for="cadastroSenha">Senha:</label>
+                    <input type="password" id="cadastroSenha" placeholder="Crie uma senha (min. 6 caracteres)" required minlength="6">
+                </div>
+                <div class="form-group">
+                    <label for="cadastroConfirmar">Confirmar Senha:</label>
+                    <input type="password" id="cadastroConfirmar" placeholder="Confirme sua senha" required minlength="6">
+                </div>
+                <div class="form-buttons">
+                    <button type="submit" class="btn-submit">Cadastrar</button>
+                </div>
+                <div class="error-message" id="cadastroError"></div>
+                <div class="success-message" id="cadastroSuccess"></div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // ===== FUNÇÕES DE ABA =====
+        function mudarAba(abaId) {
+            // Remover active de todas as abas e botões
+            document.querySelectorAll('.form-section').forEach(el => {
+                el.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-btn').forEach(el => {
+                el.classList.remove('active');
+            });
+
+            // Adicionar active à aba selecionada
+            document.getElementById(abaId).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // ===== LOGIN =====
+        function fazerLogin(event) {
+            event.preventDefault();
+
+            const email = document.getElementById('loginEmail').value;
+            const senha = document.getElementById('loginSenha').value;
+            const errorDiv = document.getElementById('loginError');
+
+            // Obter dados de cadastro do localStorage
+            const usuarios = JSON.parse(localStorage.getItem('usuarios') || '[]');
+            const usuarioEncontrado = usuarios.find(u => 
+                (u.email === email || u.usuario === email) && u.senha === senha
+            );
+
+            if (usuarioEncontrado) {
+                // Fazer login
+                localStorage.setItem('usuarioLogado', email);
+                localStorage.setItem('nomeUsuario', usuarioEncontrado.nome);
+                
+                errorDiv.style.display = 'none';
+                alert('✓ Login realizado com sucesso! Bem-vindo, ' + usuarioEncontrado.nome);
+                window.location.href = 'index.html';
+            } else {
+                errorDiv.style.display = 'block';
+                errorDiv.textContent = '✗ Email/Usuário ou senha incorretos!';
+            }
+        }
+
+        // ===== CADASTRO =====
+        function fazerCadastro(event) {
+            event.preventDefault();
+
+            const nome = document.getElementById('cadastroNome').value;
+            const email = document.getElementById('cadastroEmail').value;
+            const usuario = document.getElementById('cadastroUsuario').value;
+            const senha = document.getElementById('cadastroSenha').value;
+            const confirmar = document.getElementById('cadastroConfirmar').value;
+
+            const errorDiv = document.getElementById('cadastroError');
+            const successDiv = document.getElementById('cadastroSuccess');
+
+            // Limpar mensagens
+            errorDiv.style.display = 'none';
+            successDiv.style.display = 'none';
+
+            // Validações
+            if (senha !== confirmar) {
+                errorDiv.style.display = 'block';
+                errorDiv.textContent = '✗ As senhas não coincidem!';
+                return;
+            }
+
+            // Obter lista de usuários existentes
+            let usuarios = JSON.parse(localStorage.getItem('usuarios') || '[]');
+
+            // Verificar se usuário ou email já existe
+            if (usuarios.some(u => u.email === email)) {
+                errorDiv.style.display = 'block';
+                errorDiv.textContent = '✗ Este email já está cadastrado!';
+                return;
+            }
+
+            if (usuarios.some(u => u.usuario === usuario)) {
+                errorDiv.style.display = 'block';
+                errorDiv.textContent = '✗ Este usuário já está cadastrado!';
+                return;
+            }
+
+            // Adicionar novo usuário
+            usuarios.push({
+                nome: nome,
+                email: email,
+                usuario: usuario,
+                senha: senha,
+                dataCadastro: new Date().toLocaleDateString('pt-BR')
+            });
+
+            localStorage.setItem('usuarios', JSON.stringify(usuarios));
+
+            // Mostrar sucesso
+            successDiv.style.display = 'block';
+            successDiv.textContent = '✓ Cadastro realizado com sucesso! Agora você pode fazer login.';
+
+            // Limpar formulário
+            document.querySelector('#cadastro form').reset();
+
+            // Redirecionar após 2 segundos
+            setTimeout(() => {
+                mudarAba('login');
+                document.getElementById('loginEmail').focus();
+            }, 2000);
+        }
+
+        // Verificar se já está logado
+        if (localStorage.getItem('usuarioLogado')) {
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>
