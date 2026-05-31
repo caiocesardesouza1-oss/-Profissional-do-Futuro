@@ -1,4 +1,3 @@
-// ===== GERENCIAMENTO DE USUÁRIO =====
 
 // Obter usuário logado
 function getUsuarioLogado() {
@@ -80,6 +79,101 @@ function atualizarBarraProgresso() {
 
 // ===== QUIZ =====
 
+// Salvar respostas do quiz quando percentual >= 60%
+function salvarRespostasQuiz(unidade, respostas) {
+    const chaveArmazenamento = `respostasQuiz_${unidade}_${getUsuarioLogado()}`;
+    localStorage.setItem(chaveArmazenamento, JSON.stringify(respostas));
+}
+
+// Carregar respostas salvas do quiz
+function carregarRespostasQuiz(unidade) {
+    const chaveArmazenamento = `respostasQuiz_${unidade}_${getUsuarioLogado()}`;
+    const respostasArmazenadas = localStorage.getItem(chaveArmazenamento);
+    return respostasArmazenadas ? JSON.parse(respostasArmazenadas) : null;
+}
+
+// Verificar se quiz já foi respondido com sucesso
+function quizJaRespondido(unidade) {
+    return carregarRespostasQuiz(unidade) !== null;
+}
+
+// Restaurar respostas pré-selecionadas no quiz
+function restaurarRespostasQuiz(unidade) {
+    const respostasArmazenadas = carregarRespostasQuiz(unidade);
+    if (respostasArmazenadas) {
+        for (const [questionId, resposta] of Object.entries(respostasArmazenadas)) {
+            const elemento = document.querySelector(`input[name="${questionId}"][value="${resposta}"]`);
+            if (elemento) {
+                elemento.checked = true;
+            }
+        }
+    }
+}
+
+// Desabilitar inputs do quiz
+function desabilitarInputsQuiz() {
+    const inputs = document.querySelectorAll('.quiz-container input[type="radio"]');
+    inputs.forEach(input => {
+        input.disabled = true;
+    });
+}
+
+// Mostrar mensagem que quiz foi concluído
+function mostrarMensagemQuizConcluido() {
+    const quizContainer = document.querySelector('.quiz-container');
+    if (quizContainer) {
+        const mensagem = document.createElement('div');
+        mensagem.style.marginTop = '20px';
+        mensagem.style.padding = '15px';
+        mensagem.style.backgroundColor = '#d4edda';
+        mensagem.style.border = '1px solid #c3e6cb';
+        mensagem.style.borderRadius = '8px';
+        mensagem.style.color = '#155724';
+        mensagem.style.fontSize = '1em';
+        mensagem.innerHTML = '<strong>Quiz já foi respondido com sucesso!</strong> As suas respostas foram restauradas.';
+        quizContainer.parentElement.insertBefore(mensagem, quizContainer.nextSibling);
+    }
+}
+
+// Reativar botão de próxima unidade automaticamente
+function reativarBotaoProxima() {
+    const btnProxima = document.getElementById('btnProximaUnidade');
+    if (btnProxima) {
+        btnProxima.disabled = false;
+        btnProxima.style.opacity = '1';
+        btnProxima.style.cursor = 'pointer';
+    }
+}
+
+// Limpar respostas do quiz para reiniciar do zero
+function limparRespostasQuiz(unidade) {
+    const chaveArmazenamento = `respostasQuiz_${unidade}_${getUsuarioLogado()}`;
+    localStorage.removeItem(chaveArmazenamento);
+    
+    // Desmarcar todos os radio buttons
+    const inputs = document.querySelectorAll('.quiz-container input[type="radio"]');
+    inputs.forEach(input => {
+        input.checked = false;
+    });
+    
+    // Voltar à primeira questão se houver função de navegação
+    if (typeof mostrarQuestao === 'function') {
+        questaoAtual = 1;
+        mostrarQuestao(1);
+    }
+}
+
+// Função para download de PDF
+function downloadPDF(nomeArquivo) {
+    // Simulação de download - em produção, você pode criar PDFs reais
+    // ou usar uma API para gerar PDFs
+    alert(`Download iniciado: ${nomeArquivo}\n\nEm breve você receberá o arquivo PDF com o material didático.`);
+    
+    // Alternativa: Se você tiver PDFs reais armazenados em uma pasta
+    // Descomente a linha abaixo e coloque os PDFs na pasta "pdfs"
+    // window.location.href = `pdfs/${nomeArquivo}`;
+}
+
 // Validar resposta de quiz
 function validarQuiz(unidade) {
     const respostas = {
@@ -98,11 +192,11 @@ function validarQuiz(unidade) {
     const respostaCorreta = respostas[unidade];
     
     if (selecionada.value === respostaCorreta) {
-        alert('✓ Resposta Correta! Parabéns!');
+        alert('Resposta Correta! Parabéns!');
         salvarProgresso(`quiz${unidade.charAt(0).toUpperCase() + unidade.slice(1)}`, true);
         return true;
     } else {
-        alert('✗ Resposta Incorreta. Tente novamente!');
+        alert('Resposta Incorreta. Tente novamente!');
         return false;
     }
 }
@@ -349,7 +443,7 @@ function baixarCertificado() {
 // Compartilhar certificado
 function compartilharCertificado() {
     const nome = getNomeUsuario();
-    const texto = `🎓 Eu completei com sucesso o curso "Profissional do Futuro"! 
+    const texto = `Eu completei com sucesso o curso "Profissional do Futuro"! 
     
 Conquista alcançada em: ${new Date().toLocaleDateString('pt-BR')}
 

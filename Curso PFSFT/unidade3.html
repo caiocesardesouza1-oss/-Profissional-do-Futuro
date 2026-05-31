@@ -23,7 +23,6 @@
             <span class="user-name" style="color: rgba(255, 255, 255, 0.8); font-size: 0.95em;">Bem-vindo!</span>
             <div style="display: flex; gap: 10px;">
                 <button class="btn btn-secondary" onclick="window.location.href='index.html'" style="padding: 8px 16px; font-size: 0.9em;">← Voltar</button>
-                <button class="btn btn-logout" onclick="logout()" style="padding: 8px 16px; font-size: 0.9em;">Sair</button>
             </div>
         </div>
     </header>
@@ -48,6 +47,7 @@
                         <li>Aprender com fracassos</li>
                         <li>Resiliência</li>
                     </ul>
+                    <button class="btn btn-primary" onclick="downloadPDF('Mentalidade_Empreendedora.pdf')" style="width: 100%; margin-top: 10px; padding: 10px; font-size: 0.9em;">Download PDF</button>
                 </div>
 
                 <div class="tema-card">
@@ -59,6 +59,7 @@
                         <li>Tomada de decisão</li>
                         <li>Inspirando equipes</li>
                     </ul>
+                    <button class="btn btn-primary" onclick="downloadPDF('Lideranca_Transformadora.pdf')" style="width: 100%; margin-top: 10px; padding: 10px; font-size: 0.9em;">Download PDF</button>
                 </div>
 
                 <div class="tema-card">
@@ -70,6 +71,7 @@
                         <li>Design thinking</li>
                         <li>Implementação de ideias</li>
                     </ul>
+                    <button class="btn btn-primary" onclick="downloadPDF('Inovacao_e_Criatividade.pdf')" style="width: 100%; margin-top: 10px; padding: 10px; font-size: 0.9em;">Download PDF</button>
                 </div>
 
                 <div class="tema-card">
@@ -81,6 +83,7 @@
                         <li>Gerenciamento de riscos</li>
                         <li>Avaliação de resultados</li>
                     </ul>
+                    <button class="btn btn-primary" onclick="downloadPDF('Gestao_de_Projetos.pdf')" style="width: 100%; margin-top: 10px; padding: 10px; font-size: 0.9em;">Download PDF</button>
                 </div>
 
                 <div class="tema-card">
@@ -92,6 +95,7 @@
                         <li>Desenvolvimento contínuo</li>
                         <li>Equilibrando vida e trabalho</li>
                     </ul>
+                    <button class="btn btn-primary" onclick="downloadPDF('Construindo_seu_Futuro.pdf')" style="width: 100%; margin-top: 10px; padding: 10px; font-size: 0.9em;">Download PDF</button>
                 </div>
 
                 <div class="tema-card">
@@ -103,6 +107,7 @@
                         <li>Captação de recursos</li>
                         <li>Crescimento sustentável</li>
                     </ul>
+                    <button class="btn btn-primary" onclick="downloadPDF('Empreendedorismo_Pratico.pdf')" style="width: 100%; margin-top: 10px; padding: 10px; font-size: 0.9em;">Download PDF</button>
                 </div>
             </div>
         </div>
@@ -335,19 +340,15 @@
                     os desafios do mundo profissional moderno. Continue aprendendo, inovando 
                     e liderando com integridade.
                 </p>
-                <div class="botoes" style="margin-top: 20px;">
-                    <button class="btn btn-success" onclick="window.location.href='conclusao.html'" style="padding: 15px 30px; font-size: 1em;">
-                         Gerar declaração Oficial
-                    </button>
-                </div>
+                <div class="botoes" style="margin: 40px 0;">
+            <button class="btn btn-secondary" onclick="window.location.href='unidade2.html'">← Voltar para Unidade 2</button>
+            <button class="btn btn-primary" id="btnProximaUnidade" onclick="window.location.href='conclusao.html'" disabled style="opacity: 0.5; cursor: not-allowed;">Ir para Conclusão → (Responda o quiz)</button>
+        </div>
             </div>
         </div>
 
         <!-- NAVEGAÇÃO -->
-        <div class="botoes" style="margin: 40px 0;">
-            <button class="btn btn-secondary" onclick="window.location.href='unidade2.html'">← Voltar para Unidade 2</button>
-            <button class="btn btn-primary" id="btnProximaUnidade" onclick="window.location.href='conclusao.html'" disabled style="opacity: 0.5; cursor: not-allowed;">Ir para Conclusão → (Responda o quiz)</button>
-        </div>
+        
     </div>
 
     <!-- RODAPÉ -->
@@ -360,6 +361,19 @@
     <script>
         let questaoAtual = 1;
         const totalQuestoes = 5;
+
+        // Inicializar quiz ao carregar a página
+        function inicializarQuizUnidade3() {
+            // Restaurar respostas salvas se existirem
+            restaurarRespostasQuiz('unidade3');
+            
+            // Se quiz já foi respondido com sucesso, desabilitar inputs e reativar botão
+            if (quizJaRespondido('unidade3')) {
+                desabilitarInputsQuiz();
+                mostrarMensagemQuizConcluido();
+                reativarBotaoProxima();
+            }
+        }
 
         // Mostrar questão específica
         function mostrarQuestao(numero) {
@@ -439,15 +453,22 @@
             const percentual = Math.round((acertos / 5) * 100);
             
             if (percentual >= 60) {
-                alert(`Parabéns! Você acertou ${acertos} de 5 questões (${percentual}%).\n\nVocê passou no quiz!`);
+                // Salvar respostas para reutilização futura
+                salvarRespostasQuiz('unidade3', respostasSelecionadas);
+                
+                alert(`Parabéns! Você acertou ${acertos} de 5 questões (${percentual}%).\n\nVocê passou no quiz! Suas respostas foram salvas.`);
                 salvarProgresso('quizUnidade3', true);
                 // Habilitar botão para próxima unidade
                 document.getElementById('btnProximaUnidade').disabled = false;
                 document.getElementById('btnProximaUnidade').style.opacity = '1';
                 document.getElementById('btnProximaUnidade').style.cursor = 'pointer';
                 document.getElementById('btnProximaUnidade').textContent = 'Ir para Conclusão →';
+                // Desabilitar inputs após sucesso
+                desabilitarInputsQuiz();
             } else {
-                alert(`Você acertou ${acertos} de 5 questões (${percentual}%).\n\nTente novamente para melhorar seu desempenho!`);
+                // Limpar respostas e reiniciar quiz do zero
+                limparRespostasQuiz('unidade3');
+                alert(`Você acertou ${acertos} de 5 questões (${percentual}%).\n\nTente novamente para melhorar seu desempenho! O quiz foi reiniciado do zero.`);
             }
         }
 
@@ -456,6 +477,13 @@
             concluirUnidade('unidade3');
             concluirCurso();
         }
+
+        // Inicializar ao carregar a página
+        document.addEventListener('DOMContentLoaded', function() {
+            atualizarNomeNoHeader();
+            verificarLogin();
+            inicializarQuizUnidade3();
+        });
     </script>
 </body>
 </html>

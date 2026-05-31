@@ -198,13 +198,7 @@ nav a:hover, .nav-links a:hover {
     position: relative;
 }
 
-.tema-card li:before {
-    content: "✓";
-    position: absolute;
-    left: 0;
-    color: #13d734;
-    font-weight: bold;
-}
+
 
 /* ===== MATERIAL DIDÁTICO ===== */
 .material-didatico {

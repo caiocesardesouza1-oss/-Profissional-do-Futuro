@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Profissional do Futuro</title>
     <link rel="icon" href="img/CodeCraft - icon.png" type="image/x-icon">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.csWs">
     <style>
         body {
             display: flex;
@@ -302,11 +302,11 @@
                 localStorage.setItem('nomeUsuario', usuarioEncontrado.nome);
                 
                 errorDiv.style.display = 'none';
-                alert('✓ Login realizado com sucesso! Bem-vindo, ' + usuarioEncontrado.nome);
+                alert('Login realizado com sucesso! Bem-vindo, ' + usuarioEncontrado.nome);
                 window.location.href = 'index.html';
             } else {
                 errorDiv.style.display = 'block';
-                errorDiv.textContent = '✗ Email/Usuário ou senha incorretos!';
+                errorDiv.textContent = 'Email/Usuário ou senha incorretos!';
             }
         }
 
@@ -330,7 +330,7 @@
             // Validações
             if (senha !== confirmar) {
                 errorDiv.style.display = 'block';
-                errorDiv.textContent = '✗ As senhas não coincidem!';
+                errorDiv.textContent = 'As senhas não coincidem!';
                 return;
             }
 
@@ -340,13 +340,13 @@
             // Verificar se usuário ou email já existe
             if (usuarios.some(u => u.email === email)) {
                 errorDiv.style.display = 'block';
-                errorDiv.textContent = '✗ Este email já está cadastrado!';
+                errorDiv.textContent = 'Este email já está cadastrado!';
                 return;
             }
 
             if (usuarios.some(u => u.usuario === usuario)) {
                 errorDiv.style.display = 'block';
-                errorDiv.textContent = '✗ Este usuário já está cadastrado!';
+                errorDiv.textContent = 'Este usuário já está cadastrado!';
                 return;
             }
 
@@ -363,7 +363,7 @@
 
             // Mostrar sucesso
             successDiv.style.display = 'block';
-            successDiv.textContent = '✓ Cadastro realizado com sucesso! Agora você pode fazer login.';
+            successDiv.textContent = 'Cadastro realizado com sucesso! Agora você pode fazer login.';
 
             // Limpar formulário
             document.querySelector('#cadastro form').reset();
