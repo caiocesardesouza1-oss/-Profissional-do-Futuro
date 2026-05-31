@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Profissional do Futuro</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .login-container {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .login-container h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: bold;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .login-btn:active {
+            transform: translateY(0);
+        }
+
+        .login-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        .error-message {
+            color: #d32f2f;
+            text-align: center;
+            margin-top: 15px;
+            display: none;
+        }
+
+        .success-message {
+            color: #388e3c;
+            text-align: center;
+            margin-top: 15px;
+            display: none;
+        }
+
+        .loading {
+            text-align: center;
+            margin-top: 15px;
+            display: none;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h1>Profissional do Futuro</h1>
+        
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="usuario">Usuário (Email ou Matrícula)</label>
+                <input type="text" id="usuario" placeholder="Seu usuário" required>
+            </div>
+
+            <div class="form-group">
+                <label for="nome">Nome Completo</label>
+                <input type="text" id="nome" placeholder="Seu nome completo" required>
+            </div>
+
+            <button type="submit" class="login-btn" id="loginBtn">Entrar</button>
+        </form>
+
+        <div class="loading" id="loading">
+            <div class="spinner"></div> Autenticando...
+        </div>
+
+        <div class="error-message" id="errorMessage"></div>
+        <div class="success-message" id="successMessage"></div>
+    </div>
+
+    <!-- Importar o script da API -->
+    <script src="script_api.js"></script>
+
+    <script>
+        // Manipular o envio do formulário
+        document.getElementById('loginForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            const usuario = document.getElementById('usuario').value.trim();
+            const nome = document.getElementById('nome').value.trim();
+            const loginBtn = document.getElementById('loginBtn');
+            const loadingDiv = document.getElementById('loading');
+            const errorDiv = document.getElementById('errorMessage');
+            const successDiv = document.getElementById('successMessage');
+
+            // Validação básica
+            if (!usuario || !nome) {
+                errorDiv.textContent = 'Por favor, preencha todos os campos!';
+                errorDiv.style.display = 'block';
+                return;
+            }
+
+            // Mostrar loading
+            loginBtn.disabled = true;
+            loadingDiv.style.display = 'block';
+            errorDiv.style.display = 'none';
+            successDiv.style.display = 'none';
+
+            try {
+                // Chamar a função de login do script_api.js
+                const sucesso = await fazerLogin(usuario, nome);
+
+                if (sucesso) {
+                    successDiv.textContent = 'Login realizado com sucesso! Redirecionando...';
+                    successDiv.style.display = 'block';
+                    
+                    // Aguardar um pouco antes de redirecionar
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 1500);
+                } else {
+                    errorDiv.textContent = 'Erro ao fazer login. Tente novamente.';
+                    errorDiv.style.display = 'block';
+                    loginBtn.disabled = false;
+                    loadingDiv.style.display = 'none';
+                }
+            } catch (erro) {
+                console.error('Erro:', erro);
+                errorDiv.textContent = 'Erro ao conectar ao servidor. Verifique se o servidor Flask está rodando.';
+                errorDiv.style.display = 'block';
+                loginBtn.disabled = false;
+                loadingDiv.style.display = 'none';
+            }
+        });
+
+        // Verificar se já está logado (redirecionar se estiver)
+        document.addEventListener('DOMContentLoaded', async function() {
+            try {
+                const response = await fetch('http://localhost:5000/api/usuario', {
+                    credentials: 'include'
+                });
+                
+                if (response.ok) {
+                    // Já está logado, redirecionar
+                    window.location.href = 'index.html';
+                }
+            } catch (erro) {
+                // Erro na conexão, deixar na página de login
+                console.log('Usuário não autenticado, mostrar login.');
+            }
+        });
+    </script>
+</body>
+</html>
